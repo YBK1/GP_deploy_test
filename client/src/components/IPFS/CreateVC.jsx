@@ -6,7 +6,7 @@ import { Web3Storage } from 'web3.storage';
 const CreateVC = () => {
   const { state: { contracts, accounts, web3 } } = useEth();
   const [accessToken, setAccessToken] = useState(''); // IPFS Token입력값
-  const [fileData, setFileData] = useState('');
+  const [fileData, setFileData] = useState();
 
   const uploadIPFS = async () => {
     const getAccessToken = () => {
@@ -29,19 +29,22 @@ const CreateVC = () => {
       try{
         client = makeStorageClient();
         cid = await client.put(files);
+
+        console.log(cid);
       }
       catch(error){
         alert('유효한 Web3.storage API 토큰이 아닙니다');
       }
       finally{
         // transaction batch 처리하기
+        alert("작업이 완료되었습니다.");
+        window.location.reload();
       }
     }
 
     storeFiles();
 
-    alert("작업이 완료되었습니다.");
-    window.location.reload();
+    
   }
 
   const handleUpload = async () => {
